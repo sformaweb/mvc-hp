@@ -60,7 +60,7 @@ $ruta = str_replace($_SESSION['home'], '', $_SERVER['REQUEST_URI']);
 switch ($ruta){
 
     //Front-end
-    case "/":
+    case "":
     case "/":
         controller()->index();
         break;

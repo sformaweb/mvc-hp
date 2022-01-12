@@ -1,28 +1,15 @@
-Notas e consideracións:
+# Notas e consideracións:
 
-* Creación dun blog seguindo a arquitectura MVC.
+* Creación dun CMS seguindo a arquitectura Modelo Vista Controlador con  MVC, POO, PHP e MySQL.
+* Consta dunha área privada e outra pública (que será o contido dentro da carpeta public e view>app). Á privada poderase acceder mediante un usuario e contrasinal que crearemos posteriormente e dende alí poderanse engadir e modificar as novas.
+* Unha vez creada a estrutura de cartafoles, creamos unha bbdd (chamada blog) dende a liña de comandos   e tamén un usuario . Para acceder ao entorno MySQL: mysql -u db_user -p. Posteriormente, para crear a bbdd: CREATE DATABASE db_name;
+* Crear táboa na bbdd co comando CREATE TABLE (dentro do entorno MySQL):
 
-* Consta dunha área privada e outra pública (que será o contido dentro da carpeta public exclusivamente).
-
-* Unha vez creada a estrutura de cartafoles, creamos unha bbdd dende a liña de comandos (chamada blog) (https://www.inmotionhosting.com/support/server/databases/create-a-mysql-database/) e tamén un usuario (admin admin).
-
-* Crear táboa na bbdd co comando (dentro do entorno mysql):
-
-CREATE TABLE `usuarios` (
-  `id` int(3) NOT NULL AUTO_INCREMENT,
-  `usuario` varchar(16) NOT NULL,
-  `clave` varchar(64) NOT NULL,
-  `fecha_acceso` datetime DEFAULT NULL,
-  `activo` tinyint(1) NOT NULL DEFAULT '0',
-  `usuarios` tinyint(1) NOT NULL DEFAULT '0',
-  `noticias` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `usuario` (`usuario`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+  * Crear a táboa onde irán as noticias.
+  * Crear a táboa onde irán os datos dos usuarios.
 
 
-* Crear a táboa onde irán as noticias 
+
 * Completar os ficheiros co código.
 
 Para crear novos usuarios:
@@ -30,16 +17,15 @@ Para crear novos usuarios:
     USE cms;
 
 INSERT INTO usuarios VALUES
-    (1,"admin","$2y$12$yZxvSwfonS8ulWkktpjQee/cQa9/EmBNWcGBtEFiNcqySg2iYMmzC",null,1,1,1),  
-    (2,"operador1","$2y$12$XVoRAG98xTBPKwacO0n72eX0voLxIW0A6FuPY3osPDXGXr2vGqCD6",null,1,0,1),
-    (3,"operador2","$2y$12$NWgP1SN9dNppwnT5D1dag.lwJaihisp8CIQvGFZ0oJmlU//qNLWBO",null,0,0,1);
+    (1,"admin","_hash do contrasinal_",null,1,1,1);*
 
-    (contrasinais: admin, admin1, admin2. Creouse un hash con código php para encriptar as contrasinais)
+* Para obter o hash debemos crear un arquivo php cunha función  password_hash que encripta a contrasinal.
 
+* Cambiar o nome da bbdd no arquivo DbHelper.php e engadir o usuario e contrasinal.
+* Engadir unha nova páxina de contacto, para o cal foi preciso crear un arquivo .css e outro .js, ambos chamados "contacto" tamén, así como un contacto.php dentro de view>app.
 
+### IMPORTANTE  
 
-INSERT INTO usuarios VALUES
-    (4,"superadmin","$2y$10$XHmM63XAkDG5XsTXQfo/iuVWO0QXiQ.mfNjkI4Fozxhm9SBrcQB/K",null,1,1,1);
-    
-
-    (contrasinal:superadmin)
+* Foi preciso engadir na ruta das imaxes e do css a carpeta anterior (public) para que detectase os arquivos.
+* Fixarse na nomenclatura dos arquivos e usar camel case.
+* No arquivo index.php dentro de public, na liña 26, ter en conta que en Windows débese escribir deste xeito:  $dirname = str_replace('\public', '', dirname(_ FILE _)); (coa barra invertida).
